@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+        var problem2 = function(name, mid, end){
+          var result = "";
+          for (var i = 0; i < mid; ++i) {
+              result += "*";
+          }
+          for (var i = 0; i < 10 - mid; ++i) {
+              result += "_";
+          }
+          result += " + ";
+          for (var i = 0; i < end; ++i) {
+              result += "*";
+          }
+          for (var i = 0; i < 10 - end; ++i) {
+              result += "_";
+          }
+          result += " = ";
+          for (var i = 0; i < mid + end; ++i) {
+              result += "*";
+          }
+          for (var i = 0; i < 20 - (mid + end); ++i) {
+              result += "_";
+          }
+          console.log(name + " : " + result);
+        }
+        //여기까지가 함수다.
+
+
+        problem2("A",10,8);
+        problem2("B",1,2);
+        problem2("C",9,5);
+    </script>
+</head>
+<body>
+</body>
+</html>
