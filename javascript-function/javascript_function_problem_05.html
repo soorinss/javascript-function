@@ -1,0 +1,58 @@
+<html>
+<head>
+    <script type="text/javascript">
+    /*
+    1부터 100사이의 숫자를 프린트하는 프로그램을 작성하는데
+    3의 배수이면 "Fizz"를,
+    5의 배수이면 "Buzz"를,
+    둘 모두의 공배수이면 "FizzBuzz" 를 프린트하는 아래 함수를 구현하세요.
+
+    3과 5의 공배수 == 3과 5의 최소공배수의 배수 == ((3*5) / 최대공약수)의 배수
+    */
+
+    console.log = function(msg){
+      document.write(msg+'<br>');
+    }
+
+    /*
+    최소 공배수 값
+    */
+    function lcmCalculator(firstNum, secondNum, gcd){
+      return ((firstNum * secondNum) / gcd);
+
+    }
+
+    /*
+    최대 공약수 값
+    */
+    function gcdCalculator(firstNum, secondNum){
+      return (firstNum % secondNum == 0 ? secondNum : gcdCalculator(secondNum, firstNum%secondNum))
+    }
+
+    function print_fizz_buzz(firstNum, secondNum) {
+      var multipleOf3Text = "Fizz";
+      var multipleOf5Text = "Buzz";
+      var lcmOf3And5Text = "FizzBuzz";
+
+      var lcmOf3And5 = lcmCalculator(firstNum, secondNum, gcdCalculator(firstNum, secondNum));
+
+      for(var i=1; i<=100; i++){
+        var msg = i + " : ";
+        if(i%3 == 0)
+          console.log(msg + multipleOf3Text);
+        else if(i%5 == 0)
+          console.log(msg + multipleOf5Text);
+        else if(i%lcmOf3And5 == 0)
+          console.log(msg + lcmOf3And5Text);
+        else
+          console.log(msg + i);
+      }
+
+    }
+
+    print_fizz_buzz(3, 5);
+    </script>
+</head>
+<body>
+</body>
+</html>

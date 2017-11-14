@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+    /* 빈 매트릭스 입력 해결 */
+      console.log = function(msg){
+        document.write(msg);
+      }
+      function height() {
+        /*
+        matrix 결과 배열 만들기
+        */
+        var box = new Array(arguments.length);
+        var row = new Array(arguments.length);
+        var column = new Array(arguments.length);
+        var temp;
+        var split_temp;
+        var result = "";
+        for(var i = 0; i < box.length; i++){
+          box[i] = arguments[i];
+        }
+        for(var i = 0; i < box.length; i++){
+          temp = box[i].match(/\n/g);
+          split_temp = box[i].split('\n');
+          for(var j=0; j < split_temp.length; j++){
+            split_temp[j] = split_temp[j].match(/O/g).length;
+          }
+          column[i] = Math.max.apply(null, split_temp);
+          if(temp != null){
+            row[i] = temp.length+1;
+          }
+          else{
+            row[i] = 1;
+          }
+        }
+        var row_max = Math.max.apply(null, row);
+        var column_max = Math.max.apply(null, column);
+        var matrix = new Array(row_max);
+        for(var i=0; i< matrix.length; i++){
+          matrix[i] = new Array(column_max);
+        }
+        /*
+        결과 매트릭스 0으로 초기화
+        */
+        for(var i=0; i < matrix.length; i++){
+          for(var j=0; j < matrix[i].length; j++){
+            matrix[i][j] = "0";
+          }
+        }
+        /*
+        결과 매트릭스에 더해주기
+        */
+        for(var i=0; i < box.length; i++){
+          for(var j=0; j < row[i]; j++){
+            for(var k=0; k < column[i]; k++){
+              var replaceText = box[i];
+              split_temp = replaceText.split('\n');
+              replaceText = replaceText.replace(/\n/gi, '');
+
+              if(split_temp[j].length > k){
+                matrix[j][k] = Number(matrix[j][k]+1);
+              }
+              /*
+              if(replaceText.substr((j*column[i]+k), 1) == 'O'){
+                matrix[j][k] = Number(matrix[j][k]+1);
+              }
+              */
+            }
+          }
+        }
+        /*
+        결과 출력
+        */
+        for(var i = 0 ; i < matrix.length; i++){
+          for(var j = 0; j < matrix[i].length; j++){
+            result += matrix[i][j];
+            result += " ";
+            console.log(matrix[i][j]);
+            console.log("&nbsp;");
+          }
+          result = result.slice(0,-1);
+          result += "\n";
+          console.log("<br>");
+        }
+        result = result.slice(0,-1);
+        return result;
+      }
+
+      exepect(height('OO\nO\nOOO', 'OOOO\nOOOO'), '2 2 1 1\n2 1 1 1\n1 1 1 0');
+      exepect(height('OO\nO', 'OOOO\nOOOO'), '2 2 1 1\n2 1 1 1');
+
+      exepect(height('O', 'OOOO\nOOOO'), '2 1 1 1\n1 1 1 1');
+      exepect(height('OOOO', 'OOOO\nOOOO'), '2 2 2 2\n1 1 1 1');
+      exepect(height('OO\nOO', 'OOOO\nOOOO'), '2 2 1 1\n2 2 1 1');
+      exepect(height('OO\nOO\nOO', 'OOOO\nOOOO'), '2 2 1 1\n2 2 1 1\n1 1 0 0');
+      exepect(height('O', 'OOOO\nOOOO', 'OOOO'), '3 2 2 2\n1 1 1 1');
+      exepect(height('OOOO', 'OOOO\nOOOO', 'OOOO'), '3 3 3 3\n1 1 1 1');
+      exepect(height('OO\nOO', 'OOOO\nOOOO', 'OOOO'), '3 3 2 2\n2 2 1 1');
+      exepect(height('OO\nOO\nOO', 'OOOO\nOOOO', 'O\nO\nO\nO'), '3 2 1 1\n3 2 1 1\n2 1 0 0\n1 0 0 0');
+      exepect(height('O', 'O', 'O'), '3');
+
+      function exepect(l, r) {
+        if (l === r)
+         console.log('[pass]<br>');
+        else
+         console.log('[fail]<br>');
+      }
+    </script>
+</head>
+<body>
+</body>
+</html>

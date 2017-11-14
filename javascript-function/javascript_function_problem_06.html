@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+    console.log = function(msg){
+      document.write(msg);
+    }
+
+    function valueCheck(value){
+      if((value == null) || (value == undefined)){
+        return " "
+      }
+      return value;
+    }
+
+    function print_scores_chart() {
+
+      //배열 선언 (아래 위 표시하기위해 12)
+      var graph = new Array(12);
+
+      for(var i = 0; i < graph.length; i++){
+        graph[i] = new Array(arguments.length);
+      }
+
+      // 배열 빈값으로 초기화
+      for(var i = 0 ; i < graph.length; i++){
+        for(var j = 0; j < graph[i].length; j++){
+          graph[i][j] = "&nbsp;";
+        }
+      }
+
+      // 틀 만들기
+      for(var i = 0; i < arguments.length; i++){
+        graph[0][i] = "-";
+        graph[11][i] = "-";
+      }
+
+      // 배열에 값 넣기
+      for(var i = 0 ; i < graph.length; i++){
+        for(var j = 10; j > (10-arguments[i]); j--){
+          graph[j][i] = "*";
+        }
+      }
+      // 표현
+      for(var i = 0 ; i < graph.length; i++){
+        for(var j = 0; j < graph[i].length; j++){
+          console.log(valueCheck(graph[i][j]));
+          console.log("&nbsp;");
+        }
+        if(i == (11-Math.max.apply(null,arguments))){
+          console.log("<- max");
+        }
+        else if( i == (11-Math.min.apply(null,arguments))){
+          console.log("<- min");
+        }
+        console.log("<br>");
+      }
+      console.log("<br>");
+    }
+
+    print_scores_chart(1, 2, 3, 4, 5);
+    print_scores_chart(10, 1, 10, 1, 5, 5);
+    print_scores_chart(5, 2, 2, 9, 3, 5, 9);
+    print_scores_chart(5, 0, 2, 9, 3, 5, 9);
+    </script>
+
+    <style type="text/css">
+    body {
+      font-family: Serif;
+      font-size: 13pt;
+    }
+    </style>
+</head>
+<body>
+</body>
+</html>
